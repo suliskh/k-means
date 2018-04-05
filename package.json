@@ -1,0 +1,36 @@
+{
+  "name": "k-means",
+  "version": "1.0.0",
+  "description": "Simple K-Means clusterring in JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "babelify": "^8.0.0",
+    "browser-sync": "^2.23.5",
+    "browserify": "^16.1.1",
+    "browserify-shim": "^3.8.14",
+    "del": "^3.0.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-autoprefixer": "^4.1.0",
+    "gulp-clean-css": "^3.9.2",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-log": "0.0.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-requirejs": "^1.1.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.3",
+    "gulp-uglify": "^3.0.0",
+    "gulp-useref": "^3.1.4",
+    "gulplog": "^1.0.0",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0",
+    "watchify": "^3.11.0"
+  }
+}
