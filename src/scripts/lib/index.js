@@ -14,8 +14,8 @@ const data = [
     {x: 10, y: 5},
     {x: 10, y: 2},
     {x: 8, y: 2},
-    {x: 11, y: 4},
     {x: 1, y: 4},
+    {x: 11, y: 4},
 ]
 
 const centeroids = [
@@ -68,10 +68,14 @@ const moveCenteroids = (data, centeroids) => {
 }
 
 const doKMeans = (data, centeroids) => {
-    // TODO: Looping till not same
-    // let next = true
-    // let newCenteroids = []
-    
+    let oCenteroids = []
+    assignCluster(data, centeroids)
+    moveCenteroids(data, centeroids)
+    while (JSON.stringify(oCenteroids) !== JSON.stringify(centeroids)) {
+        oCenteroids = centeroids
+        assignCluster(data, centeroids)
+        moveCenteroids(data, centeroids)
+    }
     // while(next == true) {
     //     console.log('hi')
     //     assignCluster(data, centeroids)
@@ -79,26 +83,11 @@ const doKMeans = (data, centeroids) => {
     //     if (JSON.stringify(newCenteroids) === JSON.stringify(centeroids)) next = false
     // }
 
-    // return data
+    return data
     
 }
 module.exports = {
     do: function() {
-        // [EXPERIMENT]
-        assignCluster(data, centeroids)
-        moveCenteroids(data, centeroids)
-
-        assignCluster(data, centeroids)
-        moveCenteroids(data, centeroids)
-
-        assignCluster(data, centeroids)
-        moveCenteroids(data, centeroids)
-
-        assignCluster(data, centeroids)
-        moveCenteroids(data, centeroids)
-
-        console.warn(centeroids)
-        console.log(data)
-        // console.log(JSON.stringify({x: 1, y: 2}) === JSON.stringify({x: 1, y: 2}))
+        console.log(doKMeans(data, centeroids))
     }
 }
