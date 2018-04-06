@@ -11,9 +11,10 @@
 
 <body>
     <h1>Simple K-Means Clustering</h1>
-    <p><i>Choose data-test file (csv, tsv), and then the result will be auto-downloaded</i></p>
+    <p><i>Choose data-test file (csv, tsv), and then click the process and download button</i></p>
     <div id="container">
         <input type="file" accept=".csv, .tsv, .txt" id="fileInput">
+        <button id="download">Process and Download</button>
     </div>
     <script src="js/kmeans.min.js"></script>
     <script>
@@ -22,9 +23,16 @@
         let N = 2 // number of dimensions
         KMeans.init(K, N)
 
-        document.getElementById('fileInput').addEventListener('change', function(el) {
-            KMeans.doFromLocal(this)
+        let input = document.getElementById('fileInput')
+        document.getElementById('download').addEventListener('click', function(el) {
+            if (!input.files[0]) {
+                alert('Oops! Something went wrong. Data test not specified')
+            } else {
+                KMeans.doFromLocal(input)
+            }
+            console.log(this)
         })
+
     </script>
 </body>
 </html>
