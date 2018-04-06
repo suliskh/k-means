@@ -11,24 +11,21 @@
 
 <body>
     <h1>Halo..</h1>
-    <div class="container">
+    <div id="container">
         <input type="file" accept=".csv, .tsv, .txt" id="fileInput">
     </div>
     <!-- build:js js/kmeans.min.js -->
     <script src="scripts/kmeans.js"></script>
     <!-- endbuild -->
     <script>
-        
-        document.getElementById('fileInput').addEventListener('change', function() {
-            let data = KMeans.load(this)
-                console.log(data)
-            if (data) {
-                console.log(data)
-            } else {
-                console.error('Oops! Something went wrong.')
-            }
+        // Initialze KMeans
+        let K = 2 
+        let N = 2 // number of dimensions
+        KMeans.init(K, N)
+
+        document.getElementById('fileInput').addEventListener('change', function(el) {
+            KMeans.doFromLocal(this)
         })
-        KMeans.do()
     </script>
 </body>
 </html>

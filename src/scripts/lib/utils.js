@@ -1,25 +1,29 @@
 /**
- * Compute euclidian distance
+ * Compute euclidian distance of 2 data points
  * 
- * @param {number} x1 
- * @param {number} y1 
- * @param {number} x2 
- * @param {number} y2 
+ * @param {array} x
+ * @param {array} y
+ * @param {int} n // number of dimension
  * @return {number}
  */
-const getEuclidianDistance = (x1, y1, x2, y2) => Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))
+const getEuclidianDistance = (x, y, n) => {
+    let sum = 0
+    for (let i = 0; i < n; i++) sum += Math.pow(x[i] - y[i], 2)
+    return Math.sqrt(sum)
+}
 
 /**
  * Compute sum and count of data assigned some cluster
  * 
  * @param {array} data 
- * @param {int} cluster index of cluster in centeroids array
- * @param {string} param dimension: x or y
+ * @param {int} d index of dimension
+ * @param {int} c index of cluster in centeroids array
+ * @param {int} n number of dimension, data[n+1] is centeroid property
  * @return {obj} {sum: number, count: number}
  */
-const getSumCount = (data, cluster, param) => data.reduce((acc, val) => {
-    if (val.c == cluster) {
-        acc.sum += val[param]
+const getSumCount = (data, d, c, n) => data.reduce((acc, val) => {
+    if (val[n+1] == c) {
+        acc.sum += val[d]
         acc.count++
     }
     return acc

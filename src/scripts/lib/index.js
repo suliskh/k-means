@@ -1,72 +1,63 @@
-/**
- *  ASSUMPTIONS
- * 
- *  1. Data have 2 dimension (x and y)
- * 
- */
 const __ = require('./utils.js')
-const assignCluster = require('./assign-cluster.js')
-const moveCenteroids = require('./move-centeroids.js')
 const getRandomCenteroids = require('./random-centeroids.js')
-const load = require('./load.js')
- // TODO: Load data
+const doKMeans = require('./k-means.js')
+const papa = require('papaparse')
 
- 
- // initialization
-const K = 2
-// const centeroids = [
-//     // TODO: randomize each centeroids to input data
-//     {2,5}, 
-//     {4,2}
-// ]
-
-
-
-
+// Private variables
+const PROPS = {
+    K: 0,
+    N: 0
+}
 
 /**
- * Do K-Means clustering
- * Repeat until centeroids not moved
+ * Initialize KMeans
  * 
- * @param {array} data 
- * @param {array} centeroids 
+ * @param {int} k 
+ * @param {int} n 
  */
-const doKMeans = (data, centeroids) => {
-    let oCenteroids = []
-    assignCluster(data, centeroids)
-    moveCenteroids(data, centeroids, K)
-    while (JSON.stringify(oCenteroids) !== JSON.stringify(centeroids)) {
-        oCenteroids = centeroids
-        assignCluster(data, centeroids)
-        moveCenteroids(data, centeroids, K)
-    }
-    return data
+const init = (k, n) => {
+    PROPS.K = k
+    PROPS.N = n
+}
+
+/**
+ * Load local file and do the K-Means
+ * Supported extentions: csv, tsv, txt
+ * 
+ * @param {HTMLInput} input <input type="file">
+ */
+const doKMeansFromLocal = input => {
+    papa.parse(input.files[0], {
+        dynamicTyping: true,
+        complete: function(results) {
+            let data = results.data
+            let centeroids = KMeans.getInitialCenteroids(data, PROPS.K) // dummy centeroids
+            // let centeroids = [data[0], data[2]]
+            KMeans.do(data, centeroids, PROPS) // doKMeans
+            save(papa.unparse(data))
+        }
+    })
+}
+
+/**
+ * Save dataString to local file
+ * 
+ * @param {string} dataString
+ */
+const save = dataString => {
+    var blob = new Blob([dataString]);
+    var a = window.document.createElement("a");
+    a.href = window.URL.createObjectURL(blob, {type: "text/plain"});
+    a.download = "KMeans-data.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
 
 module.exports = {
-    do: function() {
-        const data = [
-            [2, 5],
-            [4, 5],
-            [4, 2],
-            [2, 2],
-            [8, 5],
-            [10, 5],
-            [10, 2],
-            [8, 2]
-        ]
-        
-        // const centeroids = getRandomCenteroids(data, 2)
-        let centeroids = [data[0], data[2]]
-        console.log(centeroids[0], centeroids[1])
-        console.log("------------------------------")
-        let bla = doKMeans(data, centeroids)
-
-        bla.forEach(element => {
-            console.log(element)
-        });
-    },
-    load: function(input) {
-        load(input)
-    }
+    init: init,
+    doFromLocal: doKMeansFromLocal,
+    do: doKMeans,
+    getInitialCenteroids: getRandomCenteroids,
+    papa: papa
 }

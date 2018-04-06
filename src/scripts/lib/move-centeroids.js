@@ -6,17 +6,19 @@ const __ = require('./utils.js')
  * 
  * @param {array} data 
  * @param {array} centeroids 
- * @param {int} K
+ * @param {int} n number of dimension
  */
-const moveCenteroids = (data, centeroids, K) => {
-    for (let i = 0; i < K; i++) {
-        let sumCountX = __.getSumCount(data, i, "x")
-        let sumCountY = __.getSumCount(data, i, "y")
-        let obj = {
-            x: sumCountX.sum / sumCountX.count,
-            y: sumCountY.sum / sumCountY.count
+const moveCenteroids = (data, centeroids, n) => {
+    // loop through centeroids point
+    for (let c = 0; c < centeroids.length; c++) {
+        let obj = []
+        let sumCount = 0
+        // loop through dimensions
+        for (let d = 0; d < n; d++) {
+            sumCount = __.getSumCount(data, d, c, n)
+            obj[d] = sumCount.sum / sumCount.count
         }
-        centeroids[i] = obj
+        centeroids[c] = obj
     }
 }
 

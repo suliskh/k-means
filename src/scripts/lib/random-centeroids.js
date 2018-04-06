@@ -3,12 +3,12 @@
  * from data points
  * 
  * @param {array} data 
- * @param {int} K 
+ * @param {int} k
  * @return {array} centeroids
  */
-const getRandomCenteroids = (data, K) => {
+const getRandomCenteroids = (data, k) => {
     let centeroids = []
-    for (let i = 0; i < K; i++) {
+    for (let i = 0; i < k; i++) {
         centeroids[i] = data[Math.floor(Math.random() * data.length)]
     }
     return centeroids
