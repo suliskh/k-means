@@ -12,11 +12,11 @@ const moveCenteroids = require('./move-centeroids.js')
 const doKMeans = (data, centeroids, props) => {
     let oCenteroids = []
     assignCluster(data, centeroids, props.N)
-    moveCenteroids(data, centeroids, props.K)
+    moveCenteroids(data, centeroids, props.N)
     while (JSON.stringify(oCenteroids) !== JSON.stringify(centeroids)) {
         oCenteroids = centeroids
         assignCluster(data, centeroids, props.N)
-        moveCenteroids(data, centeroids, props.K)
+        moveCenteroids(data, centeroids, props.N)
     }
 }
 

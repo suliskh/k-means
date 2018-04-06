@@ -32,9 +32,10 @@ const doKMeansFromLocal = input => {
         complete: function(results) {
             let data = results.data
             let centeroids = KMeans.getInitialCenteroids(data, PROPS.K) // dummy centeroids
-            // let centeroids = [data[0], data[2]]
+            // let centeroids = [data[0], data[2], data[11]]
             KMeans.do(data, centeroids, PROPS) // doKMeans
             save(papa.unparse(data))
+            console.log(data)
         }
     })
 }
