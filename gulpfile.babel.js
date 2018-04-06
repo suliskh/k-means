@@ -33,7 +33,8 @@ const paths = {
     src: {
         styles: dirs.src + 'styles/',
         scripts: dirs.src + 'scripts/',
-        images: dirs.src + 'images/'
+        images: dirs.src + 'images/',
+        data: dirs.src + 'data/'
     },
     temp: {
         styles: dirs.temp + 'styles/',
@@ -42,7 +43,8 @@ const paths = {
     dist: {
         styles: dirs.dist + 'css/',
         scripts: dirs.dist + 'js/',
-        images: dirs.dist + 'images/'
+        images: dirs.dist + 'images/',
+        data: dirs.dist + 'data/'
     }
 }
 
@@ -86,13 +88,16 @@ export const scripts = () => {
         .pipe(gulp.dest(paths.temp.scripts));
 }
 
-
 // Minify image
 // -----
 export const images = () => gulp.src(paths.src.images + "**/*")
     .pipe(imagemin())
     .pipe(gulp.dest(paths.dist.images));
 
+// Copy example data to dist
+// -----
+export const data = () => gulp.src(paths.src.data + "**/*")
+    .pipe(gulp.dest(paths.dist.data));
 
 // Delete dist and temp folders
 // -----
@@ -120,7 +125,9 @@ export const play = gulp.series(clean, gulp.parallel(scripts, scss, css), () => 
     b.on('log', log.info); // output build logs to terminal
 });
 
-export const build = gulp.series(clean, gulp.parallel(scripts, scss, css, images), () => {
+// Create bundle
+// -----
+export const build = gulp.series(clean, gulp.parallel(scripts, scss, css, images, data), () => {
     return gulp.src(dirs.src + "*.html")
         .pipe(useref({searchPath: [dirs.temp, dirs.src]}))
         .pipe(gulpif('*.css', cleanCSS()))
