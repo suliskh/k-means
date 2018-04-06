@@ -8,6 +8,7 @@ const __ = require('./utils.js')
 const assignCluster = require('./assign-cluster.js')
 const moveCenteroids = require('./move-centeroids.js')
 const getRandomCenteroids = require('./random-centeroids.js')
+const load = require('./load.js')
  // TODO: Load data
 
  
@@ -15,8 +16,8 @@ const getRandomCenteroids = require('./random-centeroids.js')
 const K = 2
 // const centeroids = [
 //     // TODO: randomize each centeroids to input data
-//     {x: 2, y:5}, 
-//     {x: 4, y:2}
+//     {2,5}, 
+//     {4,2}
 // ]
 
 
@@ -45,21 +46,27 @@ const doKMeans = (data, centeroids) => {
 module.exports = {
     do: function() {
         const data = [
-            {x: 2, y: 5},
-            {x: 4, y: 5},
-            {x: 4, y: 2},
-            {x: 2, y: 2},
-            {x: 8, y: 5},
-            {x: 10, y: 5},
-            {x: 10, y: 2},
-            {x: 8, y: 2},
-            {x: 1, y: 4},
-            {x: 11, y: 4},
+            [2, 5],
+            [4, 5],
+            [4, 2],
+            [2, 2],
+            [8, 5],
+            [10, 5],
+            [10, 2],
+            [8, 2]
         ]
         
-        
-        const centeroids = [data[1], data[2]]
-        console.log(centeroids)
-        console.log(doKMeans(data, centeroids))
+        // const centeroids = getRandomCenteroids(data, 2)
+        let centeroids = [data[0], data[2]]
+        console.log(centeroids[0], centeroids[1])
+        console.log("------------------------------")
+        let bla = doKMeans(data, centeroids)
+
+        bla.forEach(element => {
+            console.log(element)
+        });
+    },
+    load: function(input) {
+        load(input)
     }
 }

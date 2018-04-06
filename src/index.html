@@ -11,11 +11,23 @@
 
 <body>
     <h1>Halo..</h1>
+    <div class="container">
+        <input type="file" accept=".csv, .tsv, .txt" id="fileInput">
+    </div>
     <!-- build:js js/kmeans.min.js -->
     <script src="scripts/kmeans.js"></script>
     <!-- endbuild -->
-
     <script>
+        
+        document.getElementById('fileInput').addEventListener('change', function() {
+            let data = KMeans.load(this)
+                console.log(data)
+            if (data) {
+                console.log(data)
+            } else {
+                console.error('Oops! Something went wrong.')
+            }
+        })
         KMeans.do()
     </script>
 </body>
